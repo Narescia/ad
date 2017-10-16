@@ -13,6 +13,11 @@
         <property name="Label" translatable="yes" />
         <property name="StockId">gtk-new</property>
       </action>
+      <action id="refreshAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes" />
+        <property name="StockId">gtk-refresh</property>
+      </action>
     </action-group>
     <property name="MemberName" />
     <property name="Title" translatable="yes">MainWindow</property>
@@ -28,6 +33,7 @@
             <property name="ShowArrow">False</property>
             <node name="toolbar1" type="Toolbar">
               <node type="Toolitem" action="newAction" />
+              <node type="Toolitem" action="refreshAction" />
             </node>
           </widget>
           <packing>
@@ -165,6 +171,22 @@
           <placeholder />
         </child>
       </widget>
+    </child>
+  </widget>
+  <widget class="Gtk.Window" id="CCategoria.Window" design-size="400 300">
+    <property name="MemberName" />
+    <property name="Title" translatable="yes">Window</property>
+    <property name="WindowPosition">CenterOnParent</property>
+    <child>
+      <placeholder />
+    </child>
+  </widget>
+  <widget class="Gtk.Window" id="CCategoria.TreeViewHelper" design-size="400 300">
+    <property name="MemberName" />
+    <property name="Title" translatable="yes">TreeViewHelper</property>
+    <property name="WindowPosition">CenterOnParent</property>
+    <child>
+      <placeholder />
     </child>
   </widget>
 </stetic-interface>

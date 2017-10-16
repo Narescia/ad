@@ -12,15 +12,20 @@ namespace CCategoria
             saveAction.Activated += delegate {
                 string nombre = entryNombre.Text;
 				IDbCommand dbCommand = App.Instance.Connection.CreateCommand();
+
                 dbCommand.CommandText = "insert into categoria (nombre) values (@nombre)";
-                IDbDataParameter dbDataParameter = dbCommand.CreateParameter();
-                dbDataParameter.ParameterName = "nombre";
-                dbDataParameter.Value = nombre;
-                dbCommand.Parameters.Add(dbDataParameter);
+                DbCommandHelper.AddParameter(dbCommand, "nombre", nombre);
+
+                //IDbDataParameter dbDataParameter = dbCommand.CreateParameter();
+                //dbDataParameter.ParameterName = "nombre";
+                //dbDataParameter.Value = nombre;
+                //dbCommand.Parameters.Add(dbDataParameter);
+
                 dbCommand.ExecuteNonQuery();
 
                 Destroy();
             };
         }
+
     }
 }

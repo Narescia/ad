@@ -19,27 +19,33 @@ public partial class MainWindow : Gtk.Window{
 		ListStore listStore = new ListStore(typeof(string), typeof(string));
         treeView.Model = listStore;
 
-        IDbCommand dbCommand = App.Instance.Connection.CreateCommand();
-		dbCommand.CommandText = "select * from categoria order by id";
-		IDataReader dataReader = dbCommand.ExecuteReader();
-
-		while (dataReader.Read())
-			listStore.AppendValues(dataReader["id"].ToString(), dataReader["nombre"]);
-		dataReader.Close();
+        fillListStore(listStore);
 
 		newAction.Activated += delegate{
 			new CategoriaWindow();
 			
 		};
 
-		newAction.Activated += delegate {
-            Console.WriteLine("Hola");
-
-		};
+        refreshAction.Activated += delegate {
+            
+            listStore.Clear();
+            fillListStore(listStore);
+        };
 		
     }
 
+    private void fillListStore(ListStore listStore){
+		IDbCommand dbCommand = App.Instance.Connection.CreateCommand();
+		dbCommand.CommandText = "select * from categoria order by id";
+		IDataReader dataReader = dbCommand.ExecuteReader();
+
+		while (dataReader.Read())
+			listStore.AppendValues(dataReader["id"].ToString(), dataReader["nombre"]);
+		dataReader.Close();
+    }
+
     protected void OnDeleteEvent(object sender, DeleteEventArgs a){
+        
         App.Instance.Connection.Close();
 
         Application.Quit();
