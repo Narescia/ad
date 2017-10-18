@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Data;
-namespace CCategoria
-{
-    public class App
-    {
+namespace CCategoria {
+    public class App {
         private IDbConnection connection;
         public App()
         {
@@ -15,11 +13,11 @@ namespace CCategoria
         //    return instance;
         //}
 
-        public static App Instance{
+        public static App Instance {
             get { return instance;  }
         }
 
-        public IDbConnection Connection{
+        public IDbConnection Connection {
             get { return connection;  }
             set { connection = value; }
         }

@@ -1,11 +1,11 @@
 ﻿using System;
 using Gtk;
 
-namespace CCategoria{
+namespace CCategoria {
     
-    class MainClass{
+    class MainClass {
 
-        public static void Main(string[] args){
+        public static void Main(string[] args) {
             Application.Init();
             MainWindow win = new MainWindow();
             win.Show();
