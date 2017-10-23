@@ -1,6 +1,6 @@
 ﻿using System;
 using Gtk;
-namespace CCategoria {
+namespace Serpis.Ad {
     public class WindowHelper {
         
         public static bool Confirm(Window parent, string message) {

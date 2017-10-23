@@ -2,6 +2,7 @@
 using Gtk;
 using MySql.Data.MySqlClient;
 using System.Data;
+using Serpis.Ad;
 
 using CCategoria;
 

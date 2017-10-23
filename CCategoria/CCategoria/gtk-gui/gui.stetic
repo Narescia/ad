@@ -4,6 +4,7 @@
     <images-root-path>..</images-root-path>
   </configuration>
   <import>
+    <widget-library name="../../../CSerpisAd/CSerpisAd/bin/Debug/CSerpisAd.dll" />
     <widget-library name="../bin/Debug/CCategoria.exe" internal="true" />
   </import>
   <widget class="Gtk.Window" id="MainWindow" design-size="400 300">
