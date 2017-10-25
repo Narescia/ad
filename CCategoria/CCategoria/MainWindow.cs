@@ -14,6 +14,7 @@ public partial class MainWindow : Gtk.Window {
         Title = "Categoría";
 
         deleteAction.Sensitive = false;
+        editAction.Sensitive = false;
 
         App.Instance.Connection = new MySqlConnection ("server=localhost;database=dbprueba;user=root;password=sistemas");
 		App.Instance.Connection.Open();
@@ -27,13 +28,19 @@ public partial class MainWindow : Gtk.Window {
 
         treeView.Selection.Changed += delegate {
             bool hasSelected = treeView.Selection.CountSelectedRows() > 0;
-            deleteAction.Sensitive = hasSelected;	
+            deleteAction.Sensitive = hasSelected;
+            editAction.Sensitive = hasSelected;
         };
 
 		newAction.Activated += delegate {
 			new CategoriaWindow();
 			
 		};
+
+        editAction.Activated += delegate {
+			object id = getId();
+			new CategoriaWindow(id);
+        };
 
         refreshAction.Activated += delegate {
             listStore.Clear();
@@ -70,14 +77,6 @@ public partial class MainWindow : Gtk.Window {
 		DbCommandHelper.AddParameter(dbCommand, "id", id);
 		dbCommand.ExecuteNonQuery();
     }
-
-	private void update() {
-		/*string nombre = entryNombre.Text;
-		IDbCommand dbCommand = App.Instance.Connection.CreateCommand();
-		dbCommand.CommandText = "update from categoria set nombre = @nombre where id = @id";
-		DbCommandHelper.AddParameter(dbCommand, "nombre", nombre);
-		dbCommand.ExecuteNonQuery();*/
-	}
 
     protected void OnDeleteEvent(object sender, DeleteEventArgs a) {
         App.Instance.Connection.Close();

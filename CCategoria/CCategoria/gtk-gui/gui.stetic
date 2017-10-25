@@ -24,9 +24,10 @@
         <property name="Label" translatable="yes" />
         <property name="StockId">gtk-delete</property>
       </action>
-      <action id="Action">
+      <action id="editAction">
         <property name="Type">Action</property>
         <property name="Label" translatable="yes" />
+        <property name="StockId">gtk-edit</property>
       </action>
     </action-group>
     <property name="MemberName" />
@@ -43,11 +44,11 @@
             <property name="ShowArrow">False</property>
             <node name="toolbar1" type="Toolbar">
               <node type="Toolitem" action="newAction" />
+              <node type="Toolitem" action="editAction" />
               <node type="Separator" />
               <node type="Toolitem" action="refreshAction" />
               <node type="Separator" />
               <node type="Toolitem" action="deleteAction" />
-              <node type="Toolitem" action="Action" />
             </node>
           </widget>
           <packing>
