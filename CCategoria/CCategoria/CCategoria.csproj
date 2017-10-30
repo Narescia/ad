@@ -69,6 +69,8 @@
     <Compile Include="CategoriaWindow.cs" />
     <Compile Include="gtk-gui\CCategoria.CategoriaWindow.cs" />
     <Compile Include="TreeViewHelper.cs" />
+    <Compile Include="Categoria.cs" />
+    <Compile Include="CategoriaDao.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

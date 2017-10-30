@@ -33,6 +33,7 @@ public partial class MainWindow : Gtk.Window {
         };
 
 		newAction.Activated += delegate {
+           
 			new CategoriaWindow();
 			
 		};
@@ -49,7 +50,8 @@ public partial class MainWindow : Gtk.Window {
 
         deleteAction.Activated += delegate {
             if (WindowHelper.Confirm(this, "¿Quieres eliminar el registro?")) {
-                delete();
+                object id = getId();
+                CategoriaDao.Delete(id);
             }
         };
 		
@@ -69,13 +71,6 @@ public partial class MainWindow : Gtk.Window {
 		treeView.Selection.GetSelected(out treeIter);
         return treeView.Model.GetValue(treeIter, 0);
 
-    }
-    private void delete() {
-        object id = getId();
-		IDbCommand dbCommand = App.Instance.Connection.CreateCommand();
-		dbCommand.CommandText = "delete from categoria where id = @id";
-		DbCommandHelper.AddParameter(dbCommand, "id", id);
-		dbCommand.ExecuteNonQuery();
     }
 
     protected void OnDeleteEvent(object sender, DeleteEventArgs a) {

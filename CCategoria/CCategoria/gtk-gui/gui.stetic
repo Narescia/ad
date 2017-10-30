@@ -44,6 +44,7 @@
             <property name="ShowArrow">False</property>
             <node name="toolbar1" type="Toolbar">
               <node type="Toolitem" action="newAction" />
+              <node type="Separator" />
               <node type="Toolitem" action="editAction" />
               <node type="Separator" />
               <node type="Toolitem" action="refreshAction" />
