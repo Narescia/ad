@@ -4,7 +4,7 @@ namespace CCategoria {
         public Categoria() {
         }
         private long id;
-        private string nombre;
+        private string nombre = "";
 
         public long Id {
             get { return id; }

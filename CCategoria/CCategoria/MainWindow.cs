@@ -19,12 +19,8 @@ public partial class MainWindow : Gtk.Window {
         App.Instance.Connection = new MySqlConnection ("server=localhost;database=dbprueba;user=root;password=sistemas");
 		App.Instance.Connection.Open();
 
-        treeView.AppendColumn("id", new CellRendererText(), "text", 0);
-        treeView.AppendColumn("nombre", new CellRendererText(), "text", 1);
-		ListStore listStore = new ListStore(typeof(string), typeof(string));
-        treeView.Model = listStore;
+        TreeViewHelper.Fill(treeView, CategoriaDao.SelectAll);
 
-        fillListStore(listStore);
 
         treeView.Selection.Changed += delegate {
             bool hasSelected = treeView.Selection.CountSelectedRows() > 0;
@@ -45,8 +41,7 @@ public partial class MainWindow : Gtk.Window {
         };
 
         refreshAction.Activated += delegate {
-            listStore.Clear();
-            fillListStore(listStore);
+            TreeViewHelper.Fill(treeView, "select * from categoria order by id");
         };
 
         deleteAction.Activated += delegate {
@@ -55,7 +50,6 @@ public partial class MainWindow : Gtk.Window {
                 CategoriaDao.Delete(id);
             }
         };
-		
     }
 
     private void fillListStore(ListStore listStore) {
@@ -71,7 +65,6 @@ public partial class MainWindow : Gtk.Window {
 		TreeIter treeIter;
 		treeView.Selection.GetSelected(out treeIter);
         return treeView.Model.GetValue(treeIter, 0);
-
     }
 
     protected void OnDeleteEvent(object sender, DeleteEventArgs a) {
