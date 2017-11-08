@@ -35,36 +35,21 @@ public partial class MainWindow : Gtk.Window {
 		};
 
         editAction.Activated += delegate {
-			object id = getId();
+            object id = TreeViewHelper.GetId(treeView);
             Categoria categoria = CategoriaDao.Load(id);
 			new CategoriaWindow(categoria);
         };
 
         refreshAction.Activated += delegate {
-            TreeViewHelper.Fill(treeView, "select * from categoria order by id");
+            TreeViewHelper.Fill(treeView, CategoriaDao.SelectAll);
         };
 
         deleteAction.Activated += delegate {
             if (WindowHelper.Confirm(this, "¿Quieres eliminar el registro?")) {
-                object id = getId();
+                object id = TreeViewHelper.GetId(treeView);
                 CategoriaDao.Delete(id);
             }
         };
-    }
-
-    private void fillListStore(ListStore listStore) {
-		IDbCommand dbCommand = App.Instance.Connection.CreateCommand();
-		dbCommand.CommandText = "select * from categoria order by id";
-		IDataReader dataReader = dbCommand.ExecuteReader();
-		while (dataReader.Read())
-			listStore.AppendValues(dataReader["id"].ToString(), dataReader["nombre"]);
-		dataReader.Close();
-    }
-
-    private object getId() {
-		TreeIter treeIter;
-		treeView.Selection.GetSelected(out treeIter);
-        return treeView.Model.GetValue(treeIter, 0);
     }
 
     protected void OnDeleteEvent(object sender, DeleteEventArgs a) {

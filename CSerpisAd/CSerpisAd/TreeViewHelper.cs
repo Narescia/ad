@@ -3,6 +3,7 @@ using System;
 using System.Data;
 namespace Serpis.Ad {
 	public class TreeViewHelper {
+        
 		private static void init(TreeView treeView, IDataReader dataReader) {
 			if (treeView.Model != null)
 				return;
@@ -38,6 +39,12 @@ namespace Serpis.Ad {
 			ListStore listStore = (ListStore)treeView.Model;
 			fillListStore(listStore, dataReader);
 			dataReader.Close();
+		}
+
+        public static object GetId(TreeView treeView) {
+			TreeIter treeIter;
+			treeView.Selection.GetSelected(out treeIter);
+			return treeView.Model.GetValue(treeIter, 0);
 		}
 	}
 }
