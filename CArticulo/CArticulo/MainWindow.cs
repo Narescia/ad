@@ -3,7 +3,6 @@ using Gtk;
 using MySql.Data.MySqlClient;
 using System.Data;
 using Serpis.Ad;
-
 using CArticulo;
 
 public partial class MainWindow : Gtk.Window {
@@ -18,6 +17,8 @@ public partial class MainWindow : Gtk.Window {
 		App.Instance.Connection.Open();
 
 		TreeViewHelper.Fill(treeView, ArticuloDao.SelectAll);
+        //select a.id, a.nombre, precio, c.nombre as categoria from articulo a left
+        //join categoria c on a.categoria = c.id order by a.id);
 
 
 		treeView.Selection.Changed += delegate {

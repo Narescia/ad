@@ -6,12 +6,12 @@ namespace CArticulo {
         public ArticuloWindow(Articulo articulo) : base(Gtk.WindowType.Toplevel) {
             this.Build();
             entryNombre.Text = articulo.Nombre;
-            //entryPrecio.Text = articulo.Precio;
-            //comboCat.Text = articulo.Categoria;
-
+            spinPrecio.Value = (double)articulo.Precio;
+            //comboCat.t = articulo.Categoria;
 
 			saveAction.Activated += delegate {
                 articulo.Nombre = entryNombre.Text;
+                articulo.Precio = Decimal.Parse(spinPrecio.Text);
                 ArticuloDao.Save(articulo);
 				Destroy();
 			};
