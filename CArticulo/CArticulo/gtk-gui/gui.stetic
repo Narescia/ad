@@ -122,7 +122,7 @@
             <child>
               <widget class="Gtk.ComboBox" id="comboBox">
                 <property name="MemberName" />
-                <property name="IsTextCombo">True</property>
+                <property name="IsTextCombo">False</property>
                 <property name="Items" translatable="yes" />
               </widget>
               <packing>

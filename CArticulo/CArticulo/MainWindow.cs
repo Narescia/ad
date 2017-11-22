@@ -16,6 +16,9 @@ public partial class MainWindow : Gtk.Window {
 		App.Instance.Connection = new MySqlConnection("server=localhost;database=dbprueba;user=root;password=sistemas");
 		App.Instance.Connection.Open();
 
+        setNullPrecioToZero();
+
+
 		TreeViewHelper.Fill(treeView, ArticuloDao.SelectAll);
         //select a.id, a.nombre, precio, c.nombre as categoria from articulo a left
         //join categoria c on a.categoria = c.id order by a.id);
@@ -48,6 +51,12 @@ public partial class MainWindow : Gtk.Window {
 				ArticuloDao.Delete(id);
 			}
 		};
+	}
+
+    private void setNullPrecioToZero() {
+		IDbCommand dbCommand = App.Instance.Connection.CreateCommand();
+        dbCommand.CommandText = "update articulo set precio=0 where precio is null";
+		dbCommand.ExecuteNonQuery();
 	}
 
 	protected void OnDeleteEvent(object sender, DeleteEventArgs a) {

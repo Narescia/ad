@@ -60,7 +60,7 @@ namespace CArticulo
 			this.table1.RowSpacing = ((uint)(6));
 			this.table1.ColumnSpacing = ((uint)(6));
 			// Container child table1.Gtk.Table+TableChild
-			this.comboBox = global::Gtk.ComboBox.NewText();
+			this.comboBox = new global::Gtk.ComboBox();
 			this.comboBox.Name = "comboBox";
 			this.table1.Add(this.comboBox);
 			global::Gtk.Table.TableChild w3 = ((global::Gtk.Table.TableChild)(this.table1[this.comboBox]));

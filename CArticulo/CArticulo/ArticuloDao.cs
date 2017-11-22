@@ -39,10 +39,7 @@ namespace CArticulo {
 			IDbCommand dbCommand = App.Instance.Connection.CreateCommand();
             dbCommand.CommandText = "insert into articulo (nombre, precio, categoria)" +
                 "values (@nombre, @precio, @categoria)";
-            DbCommandHelper.AddParameter(dbCommand, "nombre", articulo.Nombre);
-			DbCommandHelper.AddParameter(dbCommand, "precio", articulo.Precio);
-            DbCommandHelper.AddParameter(dbCommand, "categoria", 
-                   articulo.Categoria == 0 ? (object)null : articulo.Categoria);
+			addParameters(dbCommand, articulo);
 			dbCommand.ExecuteNonQuery();
 		}
 
@@ -52,10 +49,15 @@ namespace CArticulo {
 			dbCommand.CommandText = "update articulo set nombre = @nombre, precio = @precio, " +
                 "categoria = @categoria where id = @id";
             DbCommandHelper.AddParameter(dbCommand, "id", articulo.Id);
-            DbCommandHelper.AddParameter(dbCommand, "nombre", articulo.Nombre);
-            DbCommandHelper.AddParameter(dbCommand, "precio", articulo.Precio);
-            DbCommandHelper.AddParameter(dbCommand, "categoria", articulo.Categoria);
+            addParameters(dbCommand, articulo);
 			dbCommand.ExecuteNonQuery();
+		}
+
+        private static void addParameters(IDbCommand dbCommand, Articulo articulo) {
+			DbCommandHelper.AddParameter(dbCommand, "nombre", articulo.Nombre);
+			DbCommandHelper.AddParameter(dbCommand, "precio", articulo.Precio);
+			DbCommandHelper.AddParameter(dbCommand, "categoria",
+				   articulo.Categoria == 0 ? (object)null : articulo.Categoria);
 		}
 
 		public static void Delete(object id) {

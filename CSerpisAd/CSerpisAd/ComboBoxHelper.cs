@@ -33,7 +33,7 @@ namespace Serpis.Ad {
             while (dataReader.Read()) {
                 TreeIter treeIter = listStore.AppendValues(dataReader[0].ToString(),
                                                            dataReader[1].ToString());
-                if (id.Equals(dataReader[0]))
+                if (id.Equals(dataReader[0].ToString()))
                     initialTreeIter = treeIter;
 
             }
