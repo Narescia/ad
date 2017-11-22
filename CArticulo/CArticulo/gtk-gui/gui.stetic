@@ -82,7 +82,7 @@
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Window" id="CArticulo.ArticuloWindow" design-size="435 300">
+  <widget class="Gtk.Window" id="CArticulo.ArticuloWindow" design-size="435 161">
     <action-group name="Default">
       <action id="saveAction">
         <property name="Type">Action</property>
@@ -120,7 +120,7 @@
             <property name="RowSpacing">6</property>
             <property name="ColumnSpacing">6</property>
             <child>
-              <widget class="Gtk.ComboBoxEntry" id="comboCat">
+              <widget class="Gtk.ComboBox" id="comboBox">
                 <property name="MemberName" />
                 <property name="IsTextCombo">True</property>
                 <property name="Items" translatable="yes" />

@@ -14,7 +14,7 @@ namespace CArticulo
 
 		private global::Gtk.Table table1;
 
-		private global::Gtk.ComboBoxEntry comboCat;
+		private global::Gtk.ComboBox comboBox;
 
 		private global::Gtk.Entry entryNombre;
 
@@ -60,10 +60,10 @@ namespace CArticulo
 			this.table1.RowSpacing = ((uint)(6));
 			this.table1.ColumnSpacing = ((uint)(6));
 			// Container child table1.Gtk.Table+TableChild
-			this.comboCat = global::Gtk.ComboBoxEntry.NewText();
-			this.comboCat.Name = "comboCat";
-			this.table1.Add(this.comboCat);
-			global::Gtk.Table.TableChild w3 = ((global::Gtk.Table.TableChild)(this.table1[this.comboCat]));
+			this.comboBox = global::Gtk.ComboBox.NewText();
+			this.comboBox.Name = "comboBox";
+			this.table1.Add(this.comboBox);
+			global::Gtk.Table.TableChild w3 = ((global::Gtk.Table.TableChild)(this.table1[this.comboBox]));
 			w3.TopAttach = ((uint)(2));
 			w3.BottomAttach = ((uint)(3));
 			w3.LeftAttach = ((uint)(1));
@@ -136,7 +136,7 @@ namespace CArticulo
 				this.Child.ShowAll();
 			}
 			this.DefaultWidth = 435;
-			this.DefaultHeight = 300;
+			this.DefaultHeight = 161;
 			this.Show();
 		}
 	}

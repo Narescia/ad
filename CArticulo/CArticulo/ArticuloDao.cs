@@ -13,7 +13,9 @@ namespace CArticulo {
 			dataReader.Read(); // TODO tratamiendo de excepciones
 			string nombre = (string)dataReader["nombre"];
             decimal precio = (decimal)dataReader["precio"];
-            long categoria = (long)dataReader["categoria"];
+            long categoria = dataReader["categoria"] is DBNull ? 
+                0 : (long)dataReader["categoria"];
+         
 			dataReader.Close();
 
             Articulo articulo = new Articulo();
@@ -39,7 +41,8 @@ namespace CArticulo {
                 "values (@nombre, @precio, @categoria)";
             DbCommandHelper.AddParameter(dbCommand, "nombre", articulo.Nombre);
 			DbCommandHelper.AddParameter(dbCommand, "precio", articulo.Precio);
-			DbCommandHelper.AddParameter(dbCommand, "categoria", articulo.Categoria);
+            DbCommandHelper.AddParameter(dbCommand, "categoria", 
+                   articulo.Categoria == 0 ? (object)null : articulo.Categoria);
 			dbCommand.ExecuteNonQuery();
 		}
 
@@ -57,7 +60,7 @@ namespace CArticulo {
 
 		public static void Delete(object id) {
 			IDbCommand dbCommand = App.Instance.Connection.CreateCommand();
-			dbCommand.CommandText = "delete from categoria where id = @id";
+			dbCommand.CommandText = "delete from articulo where id = @id";
 			DbCommandHelper.AddParameter(dbCommand, "id", id);
 			dbCommand.ExecuteNonQuery();
 		}

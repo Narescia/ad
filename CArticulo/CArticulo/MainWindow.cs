@@ -30,7 +30,6 @@ public partial class MainWindow : Gtk.Window {
 		newAction.Activated += delegate {
             Articulo articulo = new Articulo();
 			new ArticuloWindow(articulo);
-
 		};
 
 		editAction.Activated += delegate {
