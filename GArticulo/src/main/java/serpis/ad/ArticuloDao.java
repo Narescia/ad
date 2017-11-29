@@ -34,7 +34,7 @@ public class ArticuloDao{
 	public static void delete() throws SQLException{
 		Statement statement = conecta().createStatement();
 		scanId("Introduce el id que quieres borrar: ");
-		ResultSet resultset = statement.executeQuery("delete from articulo where id like ");
+		ResultSet resultset = statement.executeQuery("delete from articulo where id = ");
 	}
 	
 	public static int scanId(String label) {
@@ -48,6 +48,6 @@ public class ArticuloDao{
 			}
 			
 		}
-		}
+	}
 	
 }
