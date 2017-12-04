@@ -7,6 +7,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
+import serpis.ad.ArticuloMain.Option;
+import serpis.ad.ArticuloMain.State;
+
 public class ArticuloDao{
 	
 	private static Connection connection;
@@ -17,6 +20,59 @@ public class ArticuloDao{
 				"jdbc:mysql://localhost/dbprueba", "root", "sistemas"
 				);
 		return connection;
+	}
+
+	public static int scanId(String label) {
+		while(true) {
+			try {
+				System.out.print(label);
+				String line = scanner.nextLine();
+				return Integer.parseInt(line);
+			} catch (NumberFormatException ex) {
+				System.out.println("Debe ser un número. Introduce de nuevo");
+			}
+		}
+	}
+	
+	public static Option scanOption() {
+		for (int index = 0; index < Option.values().length; index++)
+			System.out.printf("%s - %s\n", index, Option.values()[index]);
+		String options = String.format("^[0-%s]$", Option.values().length - 1);
+		while (true) {
+			System.out.println("Elige opción: ");
+			String line = scanner.nextLine();
+			if(line.matches(options))
+				return Option.values()[Integer.parseInt(line)];
+			System.out.println("OPción inválida. Vuelve a introducir");
+		}
+	}
+	
+	public static State scanState() {
+		for (int index = 0; index < State.values().length; index++)
+			System.out.printf("%s - %s\n", index, State.values()[index]);
+		String options = String.format("^[0-%s]$", State.values().length - 1);
+		while (true) {
+			System.out.println("Elige opción: ");
+			String line = scanner.nextLine();
+			if(line.matches(options))
+				return State.values()[Integer.parseInt(line)];
+			System.out.println("Opción inválida. Vuelve a introducir");
+		}
+	}
+	
+	public static <T extends Enum<T>> T scan(Class<T> enumType){
+		T[] constants = enumType.getEnumConstants();
+		for(int index = 0; index < constants.length; index++)
+			System.out.printf("%s - %s\n", index, constants[index]);
+		String options = String.format("^[0-%s]$", constants.length - 1);
+		while (true) {
+			System.out.println("Elige opción: ");
+			String line = scanner.nextLine();
+			if(line.matches(options))
+				return constants[Integer.parseInt(line)];
+			System.out.println("Opción inválida. Vuelve a introducir");
+		}
+		
 	}
 	
 	public static void lectura() throws SQLException{
@@ -31,23 +87,18 @@ public class ArticuloDao{
 	        System.out.println(id + "\t" + nombre + "\t" + precio + "\t"+"\t" + categoria);
 	    }   
 	}
-	public static void delete() throws SQLException{
-		Statement statement = conecta().createStatement();
-		scanId("Introduce el id que quieres borrar: ");
-		ResultSet resultset = statement.executeQuery("delete from articulo where id = ");
+	
+	public static void nuevo () {
+		//TODO implementar
+	}
+	public static void modificar () {
+		//TODO implementar
 	}
 	
-	public static int scanId(String label) {
-		while(true) {
-			try {
-				System.out.print(label);
-				String line = scanner.nextLine();
-				return Integer.parseInt(line);
-			} catch (NumberFormatException ex) {
-				System.out.println("Debe ser un número. Introduce de nuevo");
-			}
-			
-		}
+	public static void borrar() throws SQLException{
+		Statement statement = conecta().createStatement();
+		scanId("Introduce el id que quieres borrar: ");
+		ResultSet resultset = statement.executeQuery("delete from articulo where id =");
 	}
 	
 }
