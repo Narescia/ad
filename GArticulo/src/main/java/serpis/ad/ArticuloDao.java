@@ -17,17 +17,53 @@ public class ArticuloDao{
 	
 	public static Connection conecta() throws SQLException{
 		Connection connection = DriverManager.getConnection(
-				"jdbc:mysql://localhost/dbprueba", "root", "sistemas"
+				"jdbc:mysql://localhost/dbprueba?useSSL=false", "root", "sistemas"
 				);
 		return connection;
 	}
 
-	public static int scanId(String label) {
+	public static long scanId(String label) {
+		while(true) {
+			try {
+				System.out.print(label);
+				String line = scanner.nextLine();
+				return Long.parseLong(line);
+			} catch (NumberFormatException ex) {
+				System.out.println("Debe ser un número. Introduce de nuevo");
+			}
+		}
+	}
+	
+	public static String scanNombre(String label) {
+		while(true) {
+			try {
+				System.out.print(label);
+				String line = scanner.nextLine();
+				return line;
+			} catch (NumberFormatException ex) {
+				System.out.println("Debe ser una cadena. Introduce de nuevo");
+			}
+		}
+	}
+	
+	public static int scanPrecio(String label) {
 		while(true) {
 			try {
 				System.out.print(label);
 				String line = scanner.nextLine();
 				return Integer.parseInt(line);
+			} catch (NumberFormatException ex) {
+				System.out.println("Debe ser un número. Introduce de nuevo");
+			}
+		}
+	}
+	
+	public static long scanCategoria(String label) {
+		while(true) {
+			try {
+				System.out.print(label);
+				String line = scanner.nextLine();
+				return Long.parseLong(line);
 			} catch (NumberFormatException ex) {
 				System.out.println("Debe ser un número. Introduce de nuevo");
 			}
@@ -72,33 +108,18 @@ public class ArticuloDao{
 				return constants[Integer.parseInt(line)];
 			System.out.println("Opción inválida. Vuelve a introducir");
 		}
-		
 	}
 	
-	public static void lectura() throws SQLException{
-		Statement statement = conecta().createStatement();
-	    ResultSet resultset = statement.executeQuery("select * from articulo");
-	    System.out.println("ID \t Nombre \t Precio \t Categoría");
-	    while (resultset.next() ) {
-	        String id = resultset.getString("id");
-	        String nombre = resultset.getString("nombre");
-	        String precio = resultset.getString("precio");
-	        String categoria = resultset.getString("categoria");
-	        System.out.println(id + "\t" + nombre + "\t" + precio + "\t"+"\t" + categoria);
-	    }   
-	}
-	
-	public static void nuevo () {
-		//TODO implementar
-	}
-	public static void modificar () {
-		//TODO implementar
-	}
-	
-	public static void borrar() throws SQLException{
-		Statement statement = conecta().createStatement();
-		scanId("Introduce el id que quieres borrar: ");
-		ResultSet resultset = statement.executeQuery("delete from articulo where id =");
+	public static boolean existeID(long id, String tabla) throws SQLException {
+		long[] ids;
+		Statement statement = ArticuloDao.conecta().createStatement();
+	    ResultSet resultset = statement.executeQuery("select id from " + tabla + " where id = " + id);
+	    
+	    if (resultset.next())
+	    	return true;
+	    
+	    System.out.println("Este id no existe en la tabla.");
+	    return false;  
 	}
 	
 }
