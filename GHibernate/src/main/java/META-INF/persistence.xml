@@ -7,6 +7,7 @@
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/dbprueba" />
             <property name="javax.persistence.jdbc.user" value="root" />
             <property name="javax.persistence.jdbc.password" value="sistemas" />
+            <property name="hibernate.show_sql" value="true" />
         </properties>
     </persistence-unit>
 </persistence>
