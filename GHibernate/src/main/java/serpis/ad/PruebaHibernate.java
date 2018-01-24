@@ -12,7 +12,7 @@ public class PruebaHibernate {
 
 	private static EntityManagerFactory entityManagerFactory;
 	public static void main(String[] args) {
-		Logger.getLogger("org.hibernate").setLevel(Level.OFF);
+		Logger.getLogger("org.hibernate").setLevel(Level.ALL);
 		entityManagerFactory = 
 			Persistence.createEntityManagerFactory("serpis.ad.ghibernate");
 		
