@@ -22,7 +22,6 @@ import javax.persistence.UniqueConstraint;
 )
 public class Cliente  implements java.io.Serializable {
 
-
      private Long id;
      private String nombre;
      private Set<Pedido> pedidos = new HashSet<Pedido>(0);
@@ -30,16 +29,16 @@ public class Cliente  implements java.io.Serializable {
     public Cliente() {
     }
 
-	
     public Cliente(String nombre) {
         this.nombre = nombre;
     }
+    
     public Cliente(String nombre, Set<Pedido> pedidos) {
        this.nombre = nombre;
        this.pedidos = pedidos;
     }
    
-     @Id @GeneratedValue(strategy=IDENTITY)
+    @Id @GeneratedValue(strategy=IDENTITY)
 
     
     @Column(name="id", unique=true, nullable=false)
@@ -50,7 +49,6 @@ public class Cliente  implements java.io.Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-
     
     @Column(name="nombre", unique=true, nullable=false, length=50)
     public String getNombre() {

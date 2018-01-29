@@ -1,8 +1,10 @@
 package serpis.ad;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,21 +28,22 @@ import javax.persistence.TemporalType;
 )
 public class Pedido  implements java.io.Serializable {
 
-
      private Long id;
      private Cliente cliente;
      private Date fecha;
      private BigDecimal importe;
      private Set<PedidoLinea> pedidolineas = new HashSet<PedidoLinea>(0);
+     //@OneToMany(mappedBy = "pedido", cascade = CascadeType.All, orphanRemoval = true)
+     //private List<PedidoLinea> pedidoLineas = new ArrayList();
 
     public Pedido() {
     }
-
 	
     public Pedido(Cliente cliente, Date fecha) {
         this.cliente = cliente;
         this.fecha = fecha;
     }
+    
     public Pedido(Cliente cliente, Date fecha, BigDecimal importe, Set<PedidoLinea> pedidolineas) {
        this.cliente = cliente;
        this.fecha = fecha;
@@ -48,7 +51,8 @@ public class Pedido  implements java.io.Serializable {
        this.pedidolineas = pedidolineas;
     }
    
-     @Id @GeneratedValue(strategy=IDENTITY)
+    @Id 
+    @GeneratedValue(strategy=IDENTITY)
 
     
     @Column(name="id", unique=true, nullable=false)
@@ -80,7 +84,6 @@ public class Pedido  implements java.io.Serializable {
         this.fecha = fecha;
     }
 
-    
     @Column(name="importe", precision=10)
     public BigDecimal getImporte() {
         return this.importe;
@@ -111,15 +114,9 @@ public class Pedido  implements java.io.Serializable {
     	return String.format("%-5s%-15s%-15s%-15s", String.valueOf(this.getId()),
 				String.valueOf(this.getCliente()),
 				String.valueOf(this.getFecha()),
-				String.valueOf(this.getImporte()));
-
-    	
+				String.valueOf(this.getImporte()));	
     	
     }
-
-
-
-
 
 }
 
