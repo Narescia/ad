@@ -87,7 +87,6 @@ public class VentaDao {
 		entityManager.persist(categoria);
 		System.out.println("Creada " + categoria);
 		entityManager.getTransaction().commit();
-
 	}
 	
 	public static void newCliente(int numero) throws MySQLIntegrityConstraintViolationException {
@@ -100,7 +99,23 @@ public class VentaDao {
 		entityManager.persist(Cliente);
 		System.out.println("Creada " + Cliente);
 		entityManager.getTransaction().commit();
-
+	}
+	
+	public static void newPedido() {
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+		Pedido pedido = new Pedido();
+		Cliente cliente = entityManager.getReference(Cliente.class, 1L);
+		pedido.setCliente(cliente);
+		PedidoLinea pedidoLinea1 = new PedidoLinea();
+		//0j0 las dos sentencias siguientes mantienen sincronizada la asociación
+		pedido.getPedidoLineas().add(pedidoLinea1);
+		pedidoLinea1.setPedido(pedido);
+		Articulo articulo = entityManager.getReference(Articulo.class, 1L);
+		pedidoLinea1.setArticulo(articulo);
+		
+		entityManager.persist(pedido);
+		entityManager.getTransaction().commit();
 	}
 
 }

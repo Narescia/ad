@@ -20,8 +20,10 @@ import javax.persistence.Table;
 )
 public class PedidoLinea  implements java.io.Serializable {
 
-     private Long id;
+     private long id;
      private Articulo articulo;
+     @ManyToOne
+     @JoinColumn(name="pedido")
      private Pedido pedido;
      private BigDecimal precio;
      private BigDecimal unidades;
@@ -43,7 +45,8 @@ public class PedidoLinea  implements java.io.Serializable {
        this.importe = importe;
     }
    
-    @Id @GeneratedValue(strategy=IDENTITY)
+    @Id 
+    @GeneratedValue(strategy=IDENTITY)
 
     @Column(name="id", unique=true, nullable=false)
     public Long getId() {
@@ -105,18 +108,7 @@ public class PedidoLinea  implements java.io.Serializable {
     @Override
     public String toString(){
    
-//    	return "ID : "+String.valueOf(this.getId())
-//    		+"\nCliente : "+String.valueOf(this.getCliente())
-//    		+"\nFecha : "+String.valueOf(this.getFecha())
-//    		+"\nImporte : "+String.valueOf(this.getImporte())
-//    		
-//    		;
-    	return String.format("%-5s%-15s%-15s%-15s", String.valueOf(this.getId()),
-				String.valueOf(this.getArticulo()),
-				String.valueOf(this.getPedido()),
-				String.valueOf(this.getPrecio()),
-				String.valueOf(this.getUnidades()),
-				String.valueOf(this.getImporte()));	
+    	return String.format("[%s] (%s)", id, articulo.getNombre(), pedido);
     	
     }
 

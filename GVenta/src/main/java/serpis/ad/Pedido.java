@@ -2,14 +2,19 @@ package serpis.ad;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -28,31 +33,35 @@ import javax.persistence.TemporalType;
 )
 public class Pedido  implements java.io.Serializable {
 
-     private Long id;
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+     private long id;
      private Cliente cliente;
-     private Date fecha;
+     private Calendar fecha = Calendar.getInstance(); //now
      private BigDecimal importe;
-     private Set<PedidoLinea> pedidolineas = new HashSet<PedidoLinea>(0);
-     //@OneToMany(mappedBy = "pedido", cascade = CascadeType.All, orphanRemoval = true)
-     //private List<PedidoLinea> pedidoLineas = new ArrayList();
+     //private Set<PedidoLinea> pedidolineas = new HashSet<PedidoLinea>(0);
+     
+     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
+     private List<PedidoLinea> pedidoLineas = new ArrayList<>();
+     
+     public List<PedidoLinea> getPedidoLineas(){
+    	 return pedidoLineas;
+     }
 
     public Pedido() {
     }
 	
-    public Pedido(Cliente cliente, Date fecha) {
+    public Pedido(Cliente cliente, Calendar fecha) {
         this.cliente = cliente;
         this.fecha = fecha;
     }
     
-    public Pedido(Cliente cliente, Date fecha, BigDecimal importe, Set<PedidoLinea> pedidolineas) {
+    public Pedido(Cliente cliente, Calendar fecha, BigDecimal importe, List<PedidoLinea> pedidolineas) {
        this.cliente = cliente;
        this.fecha = fecha;
        this.importe = importe;
-       this.pedidolineas = pedidolineas;
+       this.pedidoLineas = pedidolineas;
     }
-   
-    @Id 
-    @GeneratedValue(strategy=IDENTITY)
 
     
     @Column(name="id", unique=true, nullable=false)
@@ -76,11 +85,11 @@ public class Pedido  implements java.io.Serializable {
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name="fecha", nullable=false, length=19)
-    public Date getFecha() {
+    public Calendar getFecha() {
         return this.fecha;
     }
     
-    public void setFecha(Date fecha) {
+    public void setFecha(Calendar fecha) {
         this.fecha = fecha;
     }
 
@@ -93,28 +102,11 @@ public class Pedido  implements java.io.Serializable {
         this.importe = importe;
     }
 
-    @OneToMany(fetch=FetchType.LAZY, mappedBy="pedido")
-    public Set<PedidoLinea> getPedidolineas() {
-        return this.pedidolineas;
-    }
-    
-    public void setPedidolineas(Set<PedidoLinea> pedidolineas) {
-        this.pedidolineas = pedidolineas;
-    }
     
     @Override
     public String toString(){
    
-//    	return "ID : "+String.valueOf(this.getId())
-//    		+"\nCliente : "+String.valueOf(this.getCliente())
-//    		+"\nFecha : "+String.valueOf(this.getFecha())
-//    		+"\nImporte : "+String.valueOf(this.getImporte())
-//    		
-//    		;
-    	return String.format("%-5s%-15s%-15s%-15s", String.valueOf(this.getId()),
-				String.valueOf(this.getCliente()),
-				String.valueOf(this.getFecha()),
-				String.valueOf(this.getImporte()));	
+    	return String.format("[%s] %s %s %s", id, cliente.getNombre(), fecha.getTime(), importe);
     	
     }
 
