@@ -1,5 +1,6 @@
 package serpis.ad;
 
+import java.math.BigDecimal;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManagerFactory;
@@ -17,9 +18,10 @@ public class VentanaMain {
 		VentaDao.init(entityManagerFactory);
 	
 		VentaDao.newPedido();
+		VentaDao.showPedidoLinea();
 	
 		entityManagerFactory.close();		
-		
+
 	}
 	
 	

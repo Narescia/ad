@@ -27,6 +27,7 @@ public class PedidoLinea  {
      @ManyToOne
      @JoinColumn(name="pedido")
      private Pedido pedido;
+     
      private BigDecimal precio;
      private BigDecimal unidades;
      private BigDecimal importe;
@@ -63,6 +64,15 @@ public class PedidoLinea  {
     
     public void setArticulo(Articulo articulo) {
         this.articulo = articulo;
+        precio = articulo.getPrecio();
+        unidades = new BigDecimal(1);
+        importe = unidades.multiply(precio);
+        
+    }
+    
+    public void setUnidades(BigDecimal unidades) {
+    	this.unidades = unidades;
+    	importe = unidades.multiply(precio);
     }
 
     @ManyToOne(fetch=FetchType.LAZY)
@@ -84,6 +94,7 @@ public class PedidoLinea  {
     
     public void setPrecio(BigDecimal precio) {
         this.precio = precio;
+        importe = unidades.multiply(precio);
     }
     
     @Column(name="unidades", precision=10)
@@ -91,17 +102,12 @@ public class PedidoLinea  {
         return this.unidades;
     }
     
-    public void setUnidades(BigDecimal unidades) {
-        this.unidades = unidades;
-    }
-    
+    //no setter
     @Column(name="importe", precision=10)
     public BigDecimal getImporte() {
-        return this.importe;
-    }
-    
-    public void setImporte(BigDecimal importe) {
-        this.importe = importe;
+        return importe;
+        //return unidades.multiply(precio); Si importe fuera un campo calculado, además se 
+        //quitaría de los otros setters.
     }
     
     @Override
