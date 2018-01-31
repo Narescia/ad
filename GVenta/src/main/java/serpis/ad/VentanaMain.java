@@ -13,11 +13,10 @@ public class VentanaMain {
 		Logger.getLogger("org.hibernate").setLevel(Level.OFF);
 	
 		entityManagerFactory=
-			Persistence.createEntityManagerFactory("serpis.ad.GVenta");
+			Persistence.createEntityManagerFactory("serpis.ad.gventa");
+		VentaDao.init(entityManagerFactory);
 	
-		VentaDao.showCategoria();
-		VentaDao.showArticulos();
-		VentaDao.showCliente();
+		VentaDao.newPedido();
 	
 		entityManagerFactory.close();		
 		

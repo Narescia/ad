@@ -11,9 +11,12 @@ import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 
 public class VentaDao {
 	
-	private static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("serpis.ad.GVenta");
+	private static EntityManagerFactory entityManagerFactory;
 	private static Scanner sc = new Scanner (System.in);
 
+	public static void init(EntityManagerFactory entityManagerFactory) {
+		VentaDao.entityManagerFactory = entityManagerFactory;
+	}
 	static void showCategoria () {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
