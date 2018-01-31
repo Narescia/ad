@@ -18,9 +18,11 @@ import javax.persistence.Table;
 @Table(name="pedidolinea"
     ,catalog="dbprueba"
 )
-public class PedidoLinea  implements java.io.Serializable {
+public class PedidoLinea  {
 
      private long id;
+     @ManyToOne
+     @JoinColumn(name="articulo")
      private Articulo articulo;
      @ManyToOne
      @JoinColumn(name="pedido")
@@ -28,14 +30,6 @@ public class PedidoLinea  implements java.io.Serializable {
      private BigDecimal precio;
      private BigDecimal unidades;
      private BigDecimal importe;
-
-    public PedidoLinea() {
-    }
-
-    public PedidoLinea(Articulo articulo, Pedido pedido) {
-        this.articulo = articulo;
-        this.pedido = pedido;
-    }
     
     public PedidoLinea(Articulo articulo, Pedido pedido, BigDecimal precio, BigDecimal unidades, BigDecimal importe) {
        this.articulo = articulo;
@@ -45,7 +39,11 @@ public class PedidoLinea  implements java.io.Serializable {
        this.importe = importe;
     }
    
-    @Id 
+    public PedidoLinea() {
+		// TODO Auto-generated constructor stub
+	}
+
+	@Id 
     @GeneratedValue(strategy=IDENTITY)
 
     @Column(name="id", unique=true, nullable=false)
@@ -73,7 +71,8 @@ public class PedidoLinea  implements java.io.Serializable {
         return this.pedido;
     }
     
-    public void setPedido(Pedido pedido) {
+    //visibilidad a nivel package
+    void setPedido(Pedido pedido) {
         this.pedido = pedido;
     }
 

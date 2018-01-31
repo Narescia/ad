@@ -108,14 +108,18 @@ public class VentaDao {
 		Cliente cliente = entityManager.getReference(Cliente.class, 1L);
 		pedido.setCliente(cliente);
 		PedidoLinea pedidoLinea1 = new PedidoLinea();
-		//0j0 las dos sentencias siguientes mantienen sincronizada la asociación
-		pedido.getPedidoLineas().add(pedidoLinea1);
-		pedidoLinea1.setPedido(pedido);
+		pedido.add(pedidoLinea1);
+//		//0j0 las dos sentencias siguientes mantienen sincronizada la asociación
+//		pedido.getPedidoLineas().add(pedidoLinea1);
+//		pedidoLinea1.setPedido(pedido);
 		Articulo articulo = entityManager.getReference(Articulo.class, 1L);
 		pedidoLinea1.setArticulo(articulo);
 		
 		entityManager.persist(pedido);
 		entityManager.getTransaction().commit();
+		
+		for(PedidoLinea pedidoLinea : pedido.getPedidoLineas())
+			System.out.println(pedidoLinea);
 	}
 
 }

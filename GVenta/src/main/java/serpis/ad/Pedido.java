@@ -3,19 +3,12 @@ package serpis.ad;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -31,11 +24,13 @@ import javax.persistence.TemporalType;
 @Table(name="pedido"
     ,catalog="dbprueba"
 )
-public class Pedido  implements java.io.Serializable {
+public class Pedido {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
      private long id;
+	@ManyToOne
+	@JoinColumn(name="cliente")
      private Cliente cliente;
      private Calendar fecha = Calendar.getInstance(); //now
      private BigDecimal importe;
@@ -44,12 +39,14 @@ public class Pedido  implements java.io.Serializable {
      @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
      private List<PedidoLinea> pedidoLineas = new ArrayList<>();
      
-     public List<PedidoLinea> getPedidoLineas(){
-    	 return pedidoLineas;
+     public PedidoLinea[] getPedidoLineas(){
+    	 return pedidoLineas.toArray(new PedidoLinea[0]);
      }
-
-    public Pedido() {
-    }
+     
+     public void add(PedidoLinea pedidoLinea) {
+    	 pedidoLineas.add(pedidoLinea);
+    	 pedidoLinea.setPedido(this);
+     }
 	
     public Pedido(Cliente cliente, Calendar fecha) {
         this.cliente = cliente;
@@ -64,45 +61,48 @@ public class Pedido  implements java.io.Serializable {
     }
 
     
-    @Column(name="id", unique=true, nullable=false)
-    public Long getId() {
-        return this.id;
-    }
-    
+    public Pedido() {
+		// TODO Auto-generated constructor stub
+	}
+
+	@Column(name="id", unique=true, nullable=false)
     public void setId(Long id) {
         this.id = id;
     }
-
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="cliente", nullable=false)
-    public Cliente getCliente() {
-        return this.cliente;
-    }
     
+    public Long getId() {
+        return this.id;
+    }
+
+    @ManyToOne
+    @JoinColumn(name="cliente", nullable=false)
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+    
+    public Cliente getCliente() {
+        return this.cliente;
     }
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name="fecha", nullable=false, length=19)
-    public Calendar getFecha() {
-        return this.fecha;
-    }
-    
     public void setFecha(Calendar fecha) {
         this.fecha = fecha;
     }
+    
+    public Calendar getFecha() {
+        return this.fecha;
+    }
 
     @Column(name="importe", precision=10)
-    public BigDecimal getImporte() {
-        return this.importe;
-    }
-    
     public void setImporte(BigDecimal importe) {
         this.importe = importe;
     }
-
     
+    public BigDecimal getImporte() {
+        return this.importe;
+    }
+
     @Override
     public String toString(){
    
