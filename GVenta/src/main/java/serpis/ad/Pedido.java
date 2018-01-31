@@ -47,23 +47,27 @@ public class Pedido {
     	 pedidoLineas.add(pedidoLinea);
     	 pedidoLinea.setPedido(this);
      }
+     
+     public void remove(PedidoLinea pedidoLinea) {
+    	 pedidoLineas.remove(pedidoLinea);
+    	 pedidoLinea.setPedido(null);
+     }
 	
-    public Pedido(Cliente cliente, Calendar fecha) {
+     public Pedido(Cliente cliente, Calendar fecha) {
         this.cliente = cliente;
         this.fecha = fecha;
-    }
+     }
     
-    public Pedido(Cliente cliente, Calendar fecha, BigDecimal importe, List<PedidoLinea> pedidolineas) {
+     public Pedido(Cliente cliente, Calendar fecha, BigDecimal importe, List<PedidoLinea> pedidolineas) {
        this.cliente = cliente;
        this.fecha = fecha;
        this.importe = importe;
        this.pedidoLineas = pedidolineas;
-    }
-
+     }
     
-    public Pedido() {
+     public Pedido() {
 		// TODO Auto-generated constructor stub
-	}
+	 }
 
 	@Column(name="id", unique=true, nullable=false)
     public void setId(Long id) {
@@ -106,8 +110,7 @@ public class Pedido {
     @Override
     public String toString(){
    
-    	return String.format("[%s] %s %s %s", id, cliente.getNombre(), fecha.getTime(), importe);
-    	
+    	return String.format("[%s] %s %s %s", id, cliente.getNombre(), fecha.getTime(), importe);	
     }
 
 }

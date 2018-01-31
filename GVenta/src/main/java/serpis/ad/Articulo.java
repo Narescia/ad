@@ -21,7 +21,7 @@ import javax.persistence.UniqueConstraint;
     ,catalog="dbprueba"
     , uniqueConstraints = @UniqueConstraint(columnNames="nombre") 
 )
-public class Articulo  implements java.io.Serializable {
+public class Articulo {
 
 
      private Long id;

@@ -2,37 +2,24 @@ package serpis.ad;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-
 public class VentanaMain {
-	
 	
 	private static EntityManagerFactory entityManagerFactory;
 	
 	public static void main(String[] args) {
-	Logger.getLogger("org.hibernate").setLevel(Level.OFF);
+		Logger.getLogger("org.hibernate").setLevel(Level.OFF);
 	
-	entityManagerFactory=
+		entityManagerFactory=
 			Persistence.createEntityManagerFactory("serpis.ad.GVenta");
 	
-	VentaDao.showCategoria();
+		VentaDao.showCategoria();
+		VentaDao.showArticulos();
+		VentaDao.showCliente();
 	
-	VentaDao.showArticulos();
-	
-	VentaDao.showCliente();
-	
-//	modify(23L);
-	
-//	remove (2L);
-	
-//	newCategoria();
-	
-//	showAll();
-	
-	entityManagerFactory.close();		
+		entityManagerFactory.close();		
 		
 	}
 	
