@@ -15,15 +15,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-
 @Entity
 @Table(name="articulo"
     ,catalog="dbprueba"
     , uniqueConstraints = @UniqueConstraint(columnNames="nombre") 
 )
 public class Articulo {
-
-
      private Long id;
      private Categoria categoria;
      private String nombre;
@@ -33,7 +30,6 @@ public class Articulo {
     public Articulo() {
     }
 
-	
     public Articulo(String nombre, BigDecimal precio) {
         this.nombre = nombre;
         this.precio = precio;
@@ -45,9 +41,7 @@ public class Articulo {
        this.pedidolineas = pedidolineas;
     }
    
-     @Id @GeneratedValue(strategy=IDENTITY)
-
-    
+    @Id @GeneratedValue(strategy=IDENTITY)
     @Column(name="id", unique=true, nullable=false)
     public Long getId() {
         return this.id;
@@ -66,7 +60,6 @@ public class Articulo {
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
-
     
     @Column(name="nombre", unique=true, nullable=false, length=50)
     public String getNombre() {
@@ -92,7 +85,6 @@ public class Articulo {
         return this.pedidolineas;
     }
     
-    
     public void setPedidolineas(Set<PedidoLinea> pedidolineas) {
         this.pedidolineas = pedidolineas;
     }
@@ -111,18 +103,6 @@ public class Articulo {
 					String.valueOf(this.getPrecio()));
     		
     	}
-    	
-//    	if(this.getCategoria()!= null) {
-//    	
-//    	return "ID: "+String.valueOf(this.getId())
-//    			+"\nCategoria: "+this.getCategoria().getNombre()
-//    			+"\nNombre: "+this.getNombre()
-//    			+"\nPrecio: "+String.valueOf(this.getPrecio());
-//    	}else {
-//    		return "\nID: "+String.valueOf(this.getId())
-//			+"\nNombre: "+this.getNombre()
-//			+"\nPrecio: "+String.valueOf(this.getPrecio());
-//    	}
     	
     }
    

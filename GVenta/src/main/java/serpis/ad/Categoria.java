@@ -20,16 +20,13 @@ import javax.persistence.UniqueConstraint;
     ,catalog="dbprueba"
     , uniqueConstraints = @UniqueConstraint(columnNames="nombre") 
 )
-public class Categoria  implements java.io.Serializable {
-
-
+public class Categoria {
      private Long id;
      private String nombre;
      private Set<Articulo> articulos = new HashSet<Articulo>(0);
 
     public Categoria() {
     }
-
 	
     public Categoria(String nombre) {
         this.nombre = nombre;
@@ -39,7 +36,7 @@ public class Categoria  implements java.io.Serializable {
        this.articulos = articulos;
     }
    
-     @Id @GeneratedValue(strategy=IDENTITY)
+    @Id @GeneratedValue(strategy=IDENTITY)
 
     
     @Column(name="id", unique=true, nullable=false)

@@ -9,6 +9,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 /**
@@ -19,7 +20,6 @@ import javax.persistence.Table;
     ,catalog="dbprueba"
 )
 public class PedidoLinea  {
-
      private long id;
      @ManyToOne
      @JoinColumn(name="articulo")
@@ -27,18 +27,9 @@ public class PedidoLinea  {
      @ManyToOne
      @JoinColumn(name="pedido")
      private Pedido pedido;
-     
      private BigDecimal precio;
      private BigDecimal unidades;
      private BigDecimal importe;
-    
-    public PedidoLinea(Articulo articulo, Pedido pedido, BigDecimal precio, BigDecimal unidades, BigDecimal importe) {
-       this.articulo = articulo;
-       this.pedido = pedido;
-       this.precio = precio;
-       this.unidades = unidades;
-       this.importe = importe;
-    }
    
     public PedidoLinea() {
 		// TODO Auto-generated constructor stub
@@ -66,13 +57,14 @@ public class PedidoLinea  {
         this.articulo = articulo;
         precio = articulo.getPrecio();
         unidades = new BigDecimal(1);
-        importe = unidades.multiply(precio);
-        
     }
     
     public void setUnidades(BigDecimal unidades) {
     	this.unidades = unidades;
-    	importe = unidades.multiply(precio);
+    }
+    @Column(name="unidades")
+    public BigDecimal getUnidades() {
+        return this.unidades;
     }
 
     @ManyToOne(fetch=FetchType.LAZY)
@@ -87,32 +79,30 @@ public class PedidoLinea  {
     }
 
     
-    @Column(name="precio", precision=10)
+    @Column(name="precio")
     public BigDecimal getPrecio() {
         return this.precio;
     }
     
     public void setPrecio(BigDecimal precio) {
         this.precio = precio;
-        importe = unidades.multiply(precio);
     }
     
-    @Column(name="unidades", precision=10)
-    public BigDecimal getUnidades() {
-        return this.unidades;
+    @PrePersist
+    private void prePersist() {
+    	importe = unidades.multiply(precio);
     }
     
     //no setter
-    @Column(name="importe", precision=10)
+    @Column(name="importe")
     public BigDecimal getImporte() {
-        return importe;
-        //return unidades.multiply(precio); Si importe fuera un campo calculado, además se 
+        return unidades.multiply(precio); 
+        //Si importe fuera un campo calculado, además se 
         //quitaría de los otros setters.
     }
     
     @Override
     public String toString(){
-   
     	return String.format("[%s] (%s)", id, articulo.getNombre(), pedido);
     	
     }

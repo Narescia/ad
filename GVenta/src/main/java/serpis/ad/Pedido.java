@@ -97,14 +97,13 @@ public class Pedido {
     public Calendar getFecha() {
         return this.fecha;
     }
-
-    @Column(name="importe", precision=10)
-    public void setImporte(BigDecimal importe) {
-        this.importe = importe;
-    }
     
     public BigDecimal getImporte() {
-        return this.importe;
+        importe = BigDecimal.ZERO;
+        for(PedidoLinea pedidoLinea : pedidoLineas)
+        	importe = importe.add(pedidoLinea.getImporte());
+        return importe;
+        
     }
 
     @Override

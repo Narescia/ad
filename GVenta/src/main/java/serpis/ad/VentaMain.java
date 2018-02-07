@@ -1,12 +1,11 @@
 package serpis.ad;
 
-import java.math.BigDecimal;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-public class VentanaMain {
+public class VentaMain {
 	
 	private static EntityManagerFactory entityManagerFactory;
 	
